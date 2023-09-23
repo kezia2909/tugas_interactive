@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/helper/sql_helper.dart';
 import 'package:flutter_application_1/models/notes_model.dart';
 
 class NotesPage extends StatefulWidget {
@@ -12,8 +13,22 @@ class _NotesPageState extends State<NotesPage> {
   TextEditingController _controllerNilai = TextEditingController();
 
   List<NotesModel> listOfNotes = [];
+  final sqlHelper = SQLHelper();
 
-  void addNotes(String nilai) {
+  @override
+  void initState() {
+    super.initState();
+    _loadNotes();
+  }
+
+  Future<void> _loadNotes() async {
+    final notes = await sqlHelper.getNotes();
+    setState(() {
+      this.listOfNotes = notes;
+    });
+  }
+
+  void addNotes(String nilai) async {
     String grade = "E";
     double? tempNilai;
     try {
@@ -36,9 +51,15 @@ class _NotesPageState extends State<NotesPage> {
         } else if (tempNilai >= 40.5) {
           grade = "D";
         }
+        // setState(() {
+        //   listOfNotes.add(NotesModel(nilai: tempNilai!, grade: grade));
+        //   print("List : ${listOfNotes}");
+        // });
+        final newNote = NotesModel(nilai: tempNilai, grade: grade);
+        print("NEW NOTE : $newNote");
+        await sqlHelper.insertNotes(newNote);
         setState(() {
-          listOfNotes.add(NotesModel(nilai: tempNilai!, grade: grade));
-          print("List : ${listOfNotes}");
+          _loadNotes();
         });
       }
     } catch (e) {
