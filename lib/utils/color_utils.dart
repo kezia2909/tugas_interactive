@@ -17,7 +17,7 @@ String colorAccent = "accent";
 
 String hexGrizzly = "FFE0AC";
 String hexPanda = "FFACB7";
-String hexIcebear = "6886C5";
+String hexIcebear = "91aeed";
 String hexWhite = "F3F3F3";
 String hexBlack = "0C0C0C";
 String hexAccent = "787878";
