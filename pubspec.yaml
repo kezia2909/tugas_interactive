@@ -32,6 +32,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.3.2
   sqflite: ^2.3.0
 
 dev_dependencies:
@@ -52,6 +53,7 @@ flutter:
     - assets/images/grizz/
     - assets/images/icebear/
     - assets/images/panda/
+    - assets/images/splash.gif
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -76,3 +78,13 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  color: "#f3f7fb"
+  image: assets/images/splash.gif
+
+  android_12:
+    image: assets/images/splash.gif
+    icon_background_color: "#f3f7fb"
+
+  web: false
