@@ -29,7 +29,8 @@ class SQLHelper {
 
   Future getNotes() async {
     final db = await database;
-    final List<Map<String, dynamic>> data = await db.query('notes');
+    final List<Map<String, dynamic>> data =
+        await db.query('notes', orderBy: 'id DESC');
     return List.generate(data.length, (index) {
       print("DATA : $data");
       return NotesModel(
