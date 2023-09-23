@@ -25,12 +25,15 @@ class _NotesPageState extends State<NotesPage> {
     _loadNotes();
     _controllerNilai.addListener(
       () {
-        if (_controllerNilai.text == ".") {
-          setState(() {
+        if (_controllerNilai.text.trim().isNotEmpty) {
+          if (_controllerNilai.text == '.') {
             _controllerNilai.text = "0.";
-          });
+          }
+          isButtonEnabled = true;
+        } else {
+          isButtonEnabled = false;
         }
-        inputValidation();
+        setState(() {});
       },
     );
   }
@@ -39,45 +42,6 @@ class _NotesPageState extends State<NotesPage> {
   void dispose() {
     _controllerNilai.dispose();
     super.dispose();
-  }
-
-  void inputValidation() {
-    String input = _controllerNilai.text.trim();
-    print("input : $input");
-    if (input.isNotEmpty) {
-      final tempNilai = double.tryParse(input);
-      isButtonEnabled = true;
-      if (tempNilai != null) {
-        print("oke : $tempNilai");
-        print("temp : $tempNilai");
-        if (tempNilai > 100) {
-          isButtonEnabled = false;
-          // setState(() {
-          //   // buttonColor = colorTheme(colorAccent); // Set the new button color
-          // });
-
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Input max 100.0'),
-            ),
-          );
-        }
-      } else {
-        isButtonEnabled = false;
-
-        print("error : $input");
-        isButtonEnabled = false;
-        // setState(() {
-        //   buttonColor = colorTheme(colorAccent); // Set the new button color
-        // });
-      }
-    } else {
-      isButtonEnabled = false;
-      // setState(() {
-      //   buttonColor = colorTheme(colorAccent); // Set the new button color
-      // });
-    }
-    setState(() {});
   }
 
   Future<void> _loadNotes() async {
@@ -147,7 +111,8 @@ class _NotesPageState extends State<NotesPage> {
                         TextInputType.numberWithOptions(decimal: true),
                     inputFormatters: [
                       FilteringTextInputFormatter.allow(
-                          RegExp(r'^\d*\.?\d{0,1}')),
+                        RegExp(r'^(100|\d{0,2}(\.\d{0,1})?)'),
+                      ),
                     ],
                     decoration: InputDecoration(
                       hintText: "ex : 95.6, 70, etc",
@@ -183,8 +148,10 @@ class _NotesPageState extends State<NotesPage> {
                         style: TextStyle(color: colorTheme(colorWhite)),
                       ),
                       onPressed: () {
-                        addNotes(_controllerNilai.text.toString());
-                        _controllerNilai.clear();
+                        if (isButtonEnabled) {
+                          addNotes(_controllerNilai.text.toString());
+                          _controllerNilai.clear();
+                        }
                       },
                       style: ButtonStyle(
                         shape:
@@ -220,9 +187,9 @@ class _NotesPageState extends State<NotesPage> {
                         color: colorTheme(colorWhite),
                         border: Border.all(
                           width: 3,
-                          color: index % 3 == 0
+                          color: (listOfNotes.length - 1 - index) % 3 == 0
                               ? colorTheme(colorGrizzly)
-                              : index % 3 == 1
+                              : (listOfNotes.length - 1 - index) % 3 == 1
                                   ? colorTheme(colorIcebear)
                                   : colorTheme(colorPanda),
                         ),
