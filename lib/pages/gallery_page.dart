@@ -71,75 +71,28 @@ class _GalleryPageState extends State<GalleryPage> {
         CarouselSlider(
           carouselController: _controllerRight,
           options: CarouselOptions(
-            aspectRatio: 2.0,
-            enlargeCenterPage: true,
             height: 200,
             onPageChanged: (index, reason) {
+              print("CHANGE");
               currentIndexRight = index;
               print("index : $index");
               print("reason : $reason");
+              setState(() {});
             },
             onScrolled: (value) {
-              print(
-                  "Right=====================================================");
-              print("value : $value");
-              print("currentValueRight : $currentValueRight");
-              print("SCROLL? $isScrolling");
-              if (!isScrolling) {
-                if (value! > currentValueRight) {
-                  isScrolling = true;
-                  isFirstTimeRight = false;
-                  print(">>>>");
-                } else {
-                  print("JUMP");
-                  isScrolling = false;
-                  if (isFirstTimeRight) {
-                    currentValueRight = value;
-                  }
-                  _controllerRight.jumpToPage(currentIndexRight);
-                }
+              print("Value : $value");
+              print("current : $currentValueRight");
+              if (value! <= currentValueRight) {
+                _controllerRight.jumpToPage(currentIndexRight);
+                currentValueRight = value.floorToDouble();
               } else {
-                // if (value == currentValueRight + 1) {
-                //   print("HAHA");
-                //   isScrolling = false;
-                //   currentValueRight = value!;
-                // } else {
-                //   print("HOHO");
-                //   isScrolling = false;
-                // }
-                print("LHO");
-                if (value! > currentValueRight) {
-                  print("LAH");
-                  isScrolling = false;
-                  _controllerRight.jumpToPage(currentIndexRight);
-                  // currentValueRight++;
-                }
+                currentValueRight = value;
               }
-              setState(() {});
-              print("SCROLL2? $isScrolling");
-              print("currentValueRight2 : $currentValueRight");
-              print("current index : $currentIndexRight");
-              // if (value! <= currentValueRight) {
-              //   print("yes");
-              //   if (isScrolling) {
-              //     print("WRONG");
-              //     currentValueRight = value.floorToDouble();
-              //     print("masuk : $currentValueRight");
-              //   } else {
-              //     print("STOP : $currentValueRight");
-              //     _controllerRight.jumpToPage(currentIndexRight);
-              //   }
-              //   isScrolling = false;
-              // } else {
-              //   print("SCROLLL");
-              //   isScrolling = true;
-              //   currentValueRight = value;
-              //   print("currentValueRight : $currentValueRight");
-              //   print("currentIndexRight : $currentIndexRight");
-              // }
+              print("Value 2: $value");
+              print("current 2: $currentValueRight");
             },
           ),
-          items: listOfItemsLeft.map((i) {
+          items: listOfItemsRight.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
@@ -149,93 +102,29 @@ class _GalleryPageState extends State<GalleryPage> {
                     child: Text(
                       'text $i',
                       style: TextStyle(fontSize: 16.0),
-                    )
-                    // GestureDetector(
-                    //   onHorizontalDragStart: (details) {
-                    //     print("DRAG");
-                    //     print("drag start : $details");
-                    //   },
-                    //   onHorizontalDragDown: (details) {
-                    //     print("DRAG");
-                    //     print("drag down : $details");
-                    //   },
-                    //   onHorizontalDragEnd: (details) {
-                    //     print("DRAG");
-                    //     print("drag end : $details");
-                    //   },
-                    //   onHorizontalDragCancel: () {
-                    //     print("DRAG");
-                    //     print("drag cancel");
-                    //   },
-                    //   onHorizontalDragUpdate: (details) {
-                    //     print("DRAG");
-                    //     print("drag update : $details");
-                    //   },
-                    //   child: Container(
-                    //       width: MediaQuery.of(context).size.width,
-                    //       margin: EdgeInsets.symmetric(horizontal: 5.0),
-                    //       decoration: BoxDecoration(color: Colors.amber),
-                    //       child: Text(
-                    //         'text $i',
-                    //         style: TextStyle(fontSize: 16.0),
-                    //       )),
-                    );
+                    ));
               },
             );
           }).toList(),
         ),
-        // // both side
-        // CarouselSlider(
-        //   options: CarouselOptions(height: 200),
-        //   items: listOfItemsBoth.map((i) {
-        //     return Builder(
-        //       builder: (BuildContext context) {
-        //         return Container(
-        //             width: MediaQuery.of(context).size.width,
-        //             margin: EdgeInsets.symmetric(horizontal: 5.0),
-        //             decoration: BoxDecoration(color: Colors.amber),
-        //             child: Text(
-        //               'text $i',
-        //               style: TextStyle(fontSize: 16.0),
-        //             ));
-        //       },
-        //     );
-        //   }).toList(),
-        // ),
-        Container(
-          height: 200,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: listOfItemsBoth.length,
-            itemBuilder: (context, index) {
-              return Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(color: Colors.amber),
-                  child: Text(
-                    'text ${listOfItemsBoth[index]}',
-                    style: TextStyle(fontSize: 16.0),
-                  ));
-            },
-          ),
-        )
-        // GestureDetector(
-        //   onHorizontalDragStart: (details) {
-        //     print("drag start");
-        //     setState(() {
-        //       isScrolling = true;
-        //     });
-        //   },
-        //   onHorizontalDragEnd: (details) {
-        //     print("drag end");
-        //     setState(() {
-        //       isScrolling = true;
-        //     });
-        //   },
-        //   onHorizontalDragCancel: () {
-        //     print("drag Cancel");
-        //   },
-        // )
+        // both side
+        CarouselSlider(
+          options: CarouselOptions(height: 200),
+          items: listOfItemsBoth.map((i) {
+            return Builder(
+              builder: (BuildContext context) {
+                return Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: BoxDecoration(color: Colors.amber),
+                    child: Text(
+                      'text $i',
+                      style: TextStyle(fontSize: 16.0),
+                    ));
+              },
+            );
+          }).toList(),
+        ),
       ],
     );
   }
