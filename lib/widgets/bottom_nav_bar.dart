@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/pages/gallery_page.dart';
 import 'package:flutter_application_1/pages/notes_page.dart';
+import 'package:flutter_application_1/utils/color_utils.dart';
 
 class BottomNavBarWidget extends StatefulWidget {
   const BottomNavBarWidget({super.key});
@@ -30,6 +31,8 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
     return Scaffold(
         appBar: AppBar(
           title: Text(title),
+          foregroundColor: colorTheme(colorWhite),
+          backgroundColor: colorTheme(colorBlack),
         ),
         body: pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -45,6 +48,9 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
           ],
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
+          backgroundColor: colorTheme(colorWhite),
+          unselectedItemColor: colorTheme(colorAccent, opacity: 0.75),
+          selectedItemColor: colorTheme(colorBlack),
         ));
   }
 }
