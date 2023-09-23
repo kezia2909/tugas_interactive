@@ -48,10 +48,10 @@ class _GalleryPageState extends State<GalleryPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: 8,
-      ),
+      color: colorTheme(colorAccent),
+      width: double.infinity,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           // left only
           Expanded(
@@ -59,12 +59,13 @@ class _GalleryPageState extends State<GalleryPage> {
               padding: EdgeInsets.only(top: 8),
               color: colorTheme(colorGrizzly),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
                     child: CarouselSlider(
                       carouselController: _controllerLeft,
                       options: CarouselOptions(
-                        aspectRatio: 2.0,
+                        aspectRatio: 2,
                         enlargeCenterPage: true,
                         onPageChanged: (index, reason) {
                           currentIndexLeft = index;
@@ -92,7 +93,7 @@ class _GalleryPageState extends State<GalleryPage> {
                       }).toList(),
                     ),
                   ),
-                  Text("swipe to right >>"),
+                  Center(child: Text("swipe to right >>")),
                 ],
               ),
             ),
@@ -104,6 +105,7 @@ class _GalleryPageState extends State<GalleryPage> {
               padding: EdgeInsets.only(top: 8),
               color: colorTheme(colorIcebear),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
                     child: CarouselSlider(
@@ -136,7 +138,7 @@ class _GalleryPageState extends State<GalleryPage> {
                       }).toList(),
                     ),
                   ),
-                  Text("<< swipe to left"),
+                  Center(child: Text("<< swipe to left")),
                 ],
               ),
             ),
@@ -148,6 +150,7 @@ class _GalleryPageState extends State<GalleryPage> {
               padding: EdgeInsets.only(top: 8),
               color: colorTheme(colorPanda),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Expanded(
                     child: CarouselSlider(
@@ -161,22 +164,12 @@ class _GalleryPageState extends State<GalleryPage> {
                             return ImageGalleryWidget(
                               url: url,
                             );
-                            // return Container(
-                            //   width: MediaQuery.of(context).size.width,
-                            //   decoration: BoxDecoration(
-                            //     shape: BoxShape.rectangle,
-                            //     image: DecorationImage(
-                            //         alignment: Alignment.center,
-                            //         image: NetworkImage(url),
-                            //         fit: BoxFit.cover),
-                            //   ),
-                            // );
                           },
                         );
                       }).toList(),
                     ),
                   ),
-                  Text("<< swipe left or right >>")
+                  Center(child: Text("<< swipe left or right >>"))
                 ],
               ),
             ),
