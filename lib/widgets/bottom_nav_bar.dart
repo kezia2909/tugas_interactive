@@ -12,16 +12,25 @@ class BottomNavBarWidget extends StatefulWidget {
 class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
   List pages = [GalleryPage(), NotesPage()];
   int _selectedIndex = 0;
+  String title = "My Gallery";
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
+      if (_selectedIndex == 0) {
+        title = "My Gallery";
+      } else if (_selectedIndex == 1) {
+        title = "My Notes";
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text(title),
+        ),
         body: pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           items: [

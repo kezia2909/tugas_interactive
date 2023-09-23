@@ -112,7 +112,7 @@ class _NotesPageState extends State<NotesPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(16, 24, 16, 0),
+      padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         children: [
           TextField(
@@ -123,36 +123,54 @@ class _NotesPageState extends State<NotesPage> {
             ],
             decoration: InputDecoration(
               hintText: "ex : 95.6, 70, etc",
-              label: Text("nilai (0.0-100.0)"),
+              label: Text("nilai (0 - 100)"),
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(8.0),
                   borderSide:
                       const BorderSide(width: 0, style: BorderStyle.solid)),
             ),
           ),
-          ElevatedButton(
-            child: Text("Submit"),
-            onPressed: () {
-              addNotes(_controllerNilai.text.toString());
-              _controllerNilai.clear();
-            },
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              child: Text("Submit"),
+              onPressed: () {
+                addNotes(_controllerNilai.text.toString());
+                _controllerNilai.clear();
+              },
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8.0),
+              ))),
+            ),
           ),
           Expanded(
             child: ListView.builder(
               itemCount: listOfNotes.length,
               itemBuilder: (context, index) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Nilai : ${listOfNotes[index].nilai}",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                    Text(
-                      "Nilai : ${listOfNotes[index].grade}",
-                      style: TextStyle(fontSize: 30),
-                    ),
-                  ],
+                return Container(
+                  padding: EdgeInsets.all(8),
+                  margin: EdgeInsets.symmetric(vertical: 4),
+                  height: 50,
+                  color: index % 3 == 0
+                      ? Colors.yellow
+                      : index % 3 == 1
+                          ? Colors.blue
+                          : Colors.pink,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Nilai : ${listOfNotes[index].nilai}",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      Text(
+                        "Grade : ${listOfNotes[index].grade}",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    ],
+                  ),
                 );
               },
             ),
