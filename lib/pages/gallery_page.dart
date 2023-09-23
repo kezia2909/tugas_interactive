@@ -15,6 +15,9 @@ class _GalleryPageState extends State<GalleryPage> {
   double currentValueLeft = 10000;
   int currentIndexLeft = 0;
   CarouselController _controllerLeft = CarouselController();
+  double currentValueRight = 10000;
+  int currentIndexRight = 0;
+  CarouselController _controllerRight = CarouselController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +34,16 @@ class _GalleryPageState extends State<GalleryPage> {
               print("reason : $reason");
             },
             onScrolled: (value) {
+              print("LEFT");
               print("value : $value");
-              if (value! > currentValueLeft) {
+              if (value! >= currentValueLeft) {
                 print("yes");
                 _controllerLeft.jumpToPage(currentIndexLeft);
+              } else {
+                currentValueLeft = value.floorToDouble();
+                print("currentValueLeft : $currentValueLeft");
+                print("currentIndexLeft : $currentIndexLeft");
               }
-              currentValueLeft = value;
-              print("currentValueLeft : $currentValueLeft");
-              print("currentIndexLeft : $currentIndexLeft");
             },
           ),
           items: listOfItemsLeft.map((i) {
@@ -58,8 +63,30 @@ class _GalleryPageState extends State<GalleryPage> {
         ),
         // right only
         CarouselSlider(
-          options: CarouselOptions(height: 200),
-          items: listOfItemsRight.map((i) {
+          carouselController: _controllerRight,
+          options: CarouselOptions(
+            height: 200,
+            onPageChanged: (index, reason) {
+              currentIndexRight = index;
+              print("index : $index");
+              print("reason : $reason");
+            },
+            onScrolled: (value) {
+              print("Right");
+              print("value : $value");
+              print("currentValueRight : $currentValueRight");
+
+              if (value! <= currentValueRight) {
+                print("yes");
+                _controllerRight.jumpToPage(currentIndexRight);
+              } else {
+                currentValueRight = value;
+                print("currentValueRight : $currentValueRight");
+                print("currentIndexRight : $currentIndexRight");
+              }
+            },
+          ),
+          items: listOfItemsLeft.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
