@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/utils/color_utils.dart';
 import 'package:flutter_application_1/widgets/image_gallery.dart';
 
@@ -12,6 +15,9 @@ class GalleryPage extends StatefulWidget {
 }
 
 class _GalleryPageState extends State<GalleryPage> {
+  List<String> listOfGrizzly = [];
+  List<String> listOfIcebear = [];
+  List<String> listOfPanda = [];
   List<String> listOfItemsLeft = [
     "https://i.pinimg.com/736x/e9/39/6e/e9396e2a31207a4afe5d3a552e845a1e.jpg",
     "https://i.pinimg.com/736x/3d/15/aa/3d15aacca9e6606b87bdd3a5b4e787f7.jpg",
@@ -44,6 +50,37 @@ class _GalleryPageState extends State<GalleryPage> {
   CarouselController _controllerBoth = CarouselController();
   bool isScrolling = false;
   bool isFirstTimeRight = true;
+
+  Future<void> loadAssets() async {
+    final assetsGrizz = await getImageAssets("grizz");
+    final assetsIcebear = await getImageAssets("icebear");
+    final assetsPanda = await getImageAssets("panda");
+    setState(() {
+      listOfGrizzly = assetsGrizz;
+      listOfIcebear = assetsIcebear;
+      listOfPanda = assetsPanda;
+    });
+  }
+
+  Future<List<String>> getImageAssets(String folder) async {
+    final manifestContent = await rootBundle.loadString('AssetManifest.json');
+    final manifestMap = json.decode(manifestContent);
+    final imageAssets = manifestMap.keys
+        .where((String key) =>
+            key.startsWith('assets/images/$folder') &&
+            (key.endsWith('.jpg') ||
+                key.endsWith('.jpeg') ||
+                key.endsWith('.png') ||
+                key.endsWith('.gif')))
+        .toList();
+    return imageAssets;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadAssets();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +119,7 @@ class _GalleryPageState extends State<GalleryPage> {
                           }
                         },
                       ),
-                      items: listOfItemsLeft.map((url) {
+                      items: listOfGrizzly.map((url) {
                         return Builder(
                           builder: (BuildContext context) {
                             return ImageGalleryWidget(
@@ -127,7 +164,7 @@ class _GalleryPageState extends State<GalleryPage> {
                           }
                         },
                       ),
-                      items: listOfItemsRight.map((url) {
+                      items: listOfIcebear.map((url) {
                         return Builder(
                           builder: (BuildContext context) {
                             return ImageGalleryWidget(
@@ -158,7 +195,7 @@ class _GalleryPageState extends State<GalleryPage> {
                         aspectRatio: 2.0,
                         enlargeCenterPage: true,
                       ),
-                      items: listOfItemsBoth.map((url) {
+                      items: listOfPanda.map((url) {
                         return Builder(
                           builder: (BuildContext context) {
                             return ImageGalleryWidget(

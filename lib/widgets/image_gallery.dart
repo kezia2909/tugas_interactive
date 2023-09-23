@@ -12,7 +12,8 @@ class ImageGalleryWidget extends StatelessWidget {
         shape: BoxShape.rectangle,
         image: DecorationImage(
             alignment: Alignment.center,
-            image: NetworkImage(url),
+            // image: NetworkImage(url),
+            image: AssetImage(url),
             fit: BoxFit.cover),
       ),
     );
