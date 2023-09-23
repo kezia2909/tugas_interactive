@@ -102,7 +102,8 @@ class _GalleryPageState extends State<GalleryPage> {
                     child: CarouselSlider(
                       carouselController: _controllerLeft,
                       options: CarouselOptions(
-                        aspectRatio: 2,
+                        aspectRatio: 1 / 3,
+                        viewportFraction: 1 / 3,
                         enlargeCenterPage: true,
                         onPageChanged: (index, reason) {
                           currentIndexLeft = index;
@@ -148,7 +149,8 @@ class _GalleryPageState extends State<GalleryPage> {
                     child: CarouselSlider(
                       carouselController: _controllerRight,
                       options: CarouselOptions(
-                        aspectRatio: 2.0,
+                        aspectRatio: 1 / 3,
+                        viewportFraction: 1 / 3,
                         enlargeCenterPage: true,
                         onPageChanged: (index, reason) {
                           currentIndexRight = index;
@@ -192,7 +194,8 @@ class _GalleryPageState extends State<GalleryPage> {
                   Expanded(
                     child: CarouselSlider(
                       options: CarouselOptions(
-                        aspectRatio: 2.0,
+                        aspectRatio: 1 / 3,
+                        viewportFraction: 1 / 3,
                         enlargeCenterPage: true,
                       ),
                       items: listOfPanda.map((url) {
