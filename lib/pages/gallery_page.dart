@@ -64,168 +64,175 @@ class _GalleryPageState extends State<GalleryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: colorTheme(colorAccent),
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // left only
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(top: 8),
-              color: colorTheme(colorGrizzly),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: ProfileGalleryWidget(
-                      name: "Grizz",
-                    ),
-                  ),
-                  Expanded(
-                    child: CarouselSlider(
-                      carouselController: _controllerLeft,
-                      options: CarouselOptions(
-                        aspectRatio: aspectRatio,
-                        viewportFraction: viewFraction,
-                        enlargeCenterPage: true,
-                        onPageChanged: (index, reason) {
-                          currentIndexLeft = index;
-
-                          isScrolling = false;
-                          setState(() {});
-                        },
-                        onScrolled: (value) {
-                          if (value! >= currentValueLeft) {
-                            _controllerLeft.jumpToPage(currentIndexLeft);
-                            currentValueLeft = value.ceilToDouble();
-                          } else {
-                            currentValueLeft = value;
-                          }
-                        },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("My Gallery"),
+        foregroundColor: colorTheme(colorWhite),
+        backgroundColor: colorTheme(colorBlack),
+      ),
+      body: Container(
+        color: colorTheme(colorAccent),
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // left only
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(top: 8),
+                color: colorTheme(colorGrizzly),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: ProfileGalleryWidget(
+                        name: "Grizz",
                       ),
-                      items: listOfGrizzly.map((url) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ImageGalleryWidget(
-                              url: url,
-                            );
-                          },
-                        );
-                      }).toList(),
                     ),
-                  ),
-                  Center(child: Text("swipe to right >>")),
-                ],
+                    Expanded(
+                      child: CarouselSlider(
+                        carouselController: _controllerLeft,
+                        options: CarouselOptions(
+                          aspectRatio: aspectRatio,
+                          viewportFraction: viewFraction,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {
+                            currentIndexLeft = index;
+
+                            isScrolling = false;
+                            setState(() {});
+                          },
+                          onScrolled: (value) {
+                            if (value! >= currentValueLeft) {
+                              _controllerLeft.jumpToPage(currentIndexLeft);
+                              currentValueLeft = value.ceilToDouble();
+                            } else {
+                              currentValueLeft = value;
+                            }
+                          },
+                        ),
+                        items: listOfGrizzly.map((url) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return ImageGalleryWidget(
+                                url: url,
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    Center(child: Text("swipe to right >>")),
+                  ],
+                ),
               ),
             ),
-          ),
-          // right only
+            // right only
 
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(top: 8),
-              color: colorTheme(colorIcebear),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: ProfileGalleryWidget(
-                      name: "Ice Bear",
-                    ),
-                  ),
-                  Expanded(
-                    child: CarouselSlider(
-                      carouselController: _controllerRight,
-                      options: CarouselOptions(
-                        aspectRatio: aspectRatio,
-                        viewportFraction: viewFraction,
-                        enlargeCenterPage: true,
-                        onPageChanged: (index, reason) {
-                          currentIndexRight = index;
-
-                          setState(() {});
-                        },
-                        onScrolled: (value) {
-                          if (value! <= currentValueRight) {
-                            _controllerRight.jumpToPage(currentIndexRight);
-                            currentValueRight = value.floorToDouble();
-                          } else {
-                            currentValueRight = value;
-                          }
-                        },
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(top: 8),
+                color: colorTheme(colorIcebear),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: ProfileGalleryWidget(
+                        name: "Ice Bear",
                       ),
-                      items: listOfIcebear.map((url) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ImageGalleryWidget(
-                              url: url,
-                            );
-                          },
-                        );
-                      }).toList(),
                     ),
-                  ),
-                  Center(child: Text("<< swipe to left")),
-                ],
+                    Expanded(
+                      child: CarouselSlider(
+                        carouselController: _controllerRight,
+                        options: CarouselOptions(
+                          aspectRatio: aspectRatio,
+                          viewportFraction: viewFraction,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {
+                            currentIndexRight = index;
+
+                            setState(() {});
+                          },
+                          onScrolled: (value) {
+                            if (value! <= currentValueRight) {
+                              _controllerRight.jumpToPage(currentIndexRight);
+                              currentValueRight = value.floorToDouble();
+                            } else {
+                              currentValueRight = value;
+                            }
+                          },
+                        ),
+                        items: listOfIcebear.map((url) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return ImageGalleryWidget(
+                                url: url,
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    Center(child: Text("<< swipe to left")),
+                  ],
+                ),
               ),
             ),
-          ),
 
-          // both side
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.only(top: 8),
-              color: colorTheme(colorPanda),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: ProfileGalleryWidget(
-                      name: "Panda",
-                    ),
-                  ),
-                  // Row(
-                  //   children: [
-                  //     CircleAvatar(
-                  //       radius: MediaQuery.of(context).size.width / 15,
-                  //       backgroundImage:
-                  //           AssetImage('assets/images/grizz_profile.jpg'),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 10,
-                  //     ),
-                  //     Text("Panda"),
-                  //   ],
-                  // ),
-                  Expanded(
-                    child: CarouselSlider(
-                      options: CarouselOptions(
-                        aspectRatio: aspectRatio,
-                        viewportFraction: viewFraction,
-                        enlargeCenterPage: true,
+            // both side
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.only(top: 8),
+                color: colorTheme(colorPanda),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: ProfileGalleryWidget(
+                        name: "Panda",
                       ),
-                      items: listOfPanda.map((url) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ImageGalleryWidget(
-                              url: url,
-                            );
-                          },
-                        );
-                      }).toList(),
                     ),
-                  ),
-                  Center(child: Text("<< swipe left or right >>"))
-                ],
+                    // Row(
+                    //   children: [
+                    //     CircleAvatar(
+                    //       radius: MediaQuery.of(context).size.width / 15,
+                    //       backgroundImage:
+                    //           AssetImage('assets/images/grizz_profile.jpg'),
+                    //     ),
+                    //     SizedBox(
+                    //       width: 10,
+                    //     ),
+                    //     Text("Panda"),
+                    //   ],
+                    // ),
+                    Expanded(
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          aspectRatio: aspectRatio,
+                          viewportFraction: viewFraction,
+                          enlargeCenterPage: true,
+                        ),
+                        items: listOfPanda.map((url) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return ImageGalleryWidget(
+                                url: url,
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
+                    ),
+                    Center(child: Text("<< swipe left or right >>"))
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

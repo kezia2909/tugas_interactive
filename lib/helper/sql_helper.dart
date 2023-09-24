@@ -40,4 +40,11 @@ class SQLHelper {
       );
     });
   }
+
+  Future<void> deleteAllNotes() async {
+    final db = await database;
+
+    // Delete all rows from the table
+    await db.delete('notes'); // Replace with your table name
+  }
 }
