@@ -30,6 +30,7 @@ class _GalleryPageState extends State<GalleryPage> {
   bool isFirstTimeRight = true;
   double aspectRatio = 3 / 1;
   double viewFraction = 1 / 3;
+  double heightSection = 200;
 
   Future<void> loadAssets() async {
     final assetsGrizz = await getImageAssets("grizz");
@@ -64,15 +65,22 @@ class _GalleryPageState extends State<GalleryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: colorTheme(colorAccent),
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          // left only
-          Expanded(
-            child: Container(
+    double deviceWidth = MediaQuery.of(context).size.width;
+    double deviceHeight = MediaQuery.of(context).size.height;
+    if (deviceHeight > deviceWidth) {
+      heightSection = 200;
+    }
+
+    return SingleChildScrollView(
+      child: Container(
+        color: colorTheme(colorAccent),
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // left only
+            Container(
+              height: heightSection,
               padding: EdgeInsets.only(top: 8),
               color: colorTheme(colorGrizzly),
               child: Column(
@@ -121,11 +129,10 @@ class _GalleryPageState extends State<GalleryPage> {
                 ],
               ),
             ),
-          ),
-          // right only
+            // right only
 
-          Expanded(
-            child: Container(
+            Container(
+              height: heightSection,
               padding: EdgeInsets.only(top: 8),
               color: colorTheme(colorIcebear),
               child: Column(
@@ -173,11 +180,10 @@ class _GalleryPageState extends State<GalleryPage> {
                 ],
               ),
             ),
-          ),
 
-          // both side
-          Expanded(
-            child: Container(
+            // both side
+            Container(
+              height: heightSection,
               padding: EdgeInsets.only(top: 8),
               color: colorTheme(colorPanda),
               child: Column(
@@ -224,8 +230,8 @@ class _GalleryPageState extends State<GalleryPage> {
                 ],
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

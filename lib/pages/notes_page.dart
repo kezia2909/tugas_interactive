@@ -74,23 +74,16 @@ class _NotesPageState extends State<NotesPage> {
     try {
       tempNilai = double.tryParse(nilai);
       if (tempNilai == null) {
-        print("error : $nilai");
       } else {
-        print("oke : $tempNilai");
-        print("temp : $tempNilai");
-
         final newNote =
             NotesModel(nilai: tempNilai, grade: convertGrade(tempNilai));
-        print("NEW NOTE : $newNote");
         await sqlHelper.insertNotes(newNote);
 
         setState(() {
           _loadNotes();
         });
       }
-    } catch (e) {
-      print("error : $e");
-    }
+    } catch (e) {}
   }
 
   @override
