@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/helper/sql_helper.dart';
 import 'package:flutter_application_1/pages/gallery_page.dart';
 import 'package:flutter_application_1/pages/notes_page.dart';
 import 'package:flutter_application_1/utils/color_utils.dart';
@@ -29,11 +30,6 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-          foregroundColor: colorTheme(colorWhite),
-          backgroundColor: colorTheme(colorBlack),
-        ),
         body: pages[_selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
           items: [

@@ -70,8 +70,14 @@ class _GalleryPageState extends State<GalleryPage> {
     if (deviceHeight > deviceWidth) {
       heightSection = 200;
     }
-
-    return SingleChildScrollView(
+    
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("My Gallery"),
+        foregroundColor: colorTheme(colorWhite),
+        backgroundColor: colorTheme(colorBlack),
+      ),
+      body: SingleChildScrollView(
       child: Container(
         color: colorTheme(colorAccent),
         width: double.infinity,
@@ -91,45 +97,46 @@ class _GalleryPageState extends State<GalleryPage> {
                     child: ProfileGalleryWidget(
                       name: "Grizz",
                     ),
-                  ),
-                  Expanded(
-                    child: CarouselSlider(
-                      carouselController: _controllerLeft,
-                      options: CarouselOptions(
-                        aspectRatio: aspectRatio,
-                        viewportFraction: viewFraction,
-                        enlargeCenterPage: true,
-                        onPageChanged: (index, reason) {
-                          currentIndexLeft = index;
+                    Expanded(
+                      child: CarouselSlider(
+                        carouselController: _controllerLeft,
+                        options: CarouselOptions(
+                          aspectRatio: aspectRatio,
+                          viewportFraction: viewFraction,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {
+                            currentIndexLeft = index;
 
-                          isScrolling = false;
-                          setState(() {});
-                        },
-                        onScrolled: (value) {
-                          if (value! >= currentValueLeft) {
-                            _controllerLeft.jumpToPage(currentIndexLeft);
-                            currentValueLeft = value.ceilToDouble();
-                          } else {
-                            currentValueLeft = value;
-                          }
-                        },
-                      ),
-                      items: listOfGrizzly.map((url) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ImageGalleryWidget(
-                              url: url,
-                            );
+                            isScrolling = false;
+                            setState(() {});
                           },
-                        );
-                      }).toList(),
+                          onScrolled: (value) {
+                            if (value! >= currentValueLeft) {
+                              _controllerLeft.jumpToPage(currentIndexLeft);
+                              currentValueLeft = value.ceilToDouble();
+                            } else {
+                              currentValueLeft = value;
+                            }
+                          },
+                        ),
+                        items: listOfGrizzly.map((url) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return ImageGalleryWidget(
+                                url: url,
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
                     ),
-                  ),
-                  Center(child: Text("swipe to right >>")),
-                ],
+                    Center(child: Text("swipe to right >>")),
+                  ],
+                ),
               ),
             ),
             // right only
+
 
             Container(
               height: heightSection,
@@ -143,45 +150,46 @@ class _GalleryPageState extends State<GalleryPage> {
                     child: ProfileGalleryWidget(
                       name: "Ice Bear",
                     ),
-                  ),
-                  Expanded(
-                    child: CarouselSlider(
-                      carouselController: _controllerRight,
-                      options: CarouselOptions(
-                        aspectRatio: aspectRatio,
-                        viewportFraction: viewFraction,
-                        enlargeCenterPage: true,
-                        onPageChanged: (index, reason) {
-                          currentIndexRight = index;
+                    Expanded(
+                      child: CarouselSlider(
+                        carouselController: _controllerRight,
+                        options: CarouselOptions(
+                          aspectRatio: aspectRatio,
+                          viewportFraction: viewFraction,
+                          enlargeCenterPage: true,
+                          onPageChanged: (index, reason) {
+                            currentIndexRight = index;
 
-                          setState(() {});
-                        },
-                        onScrolled: (value) {
-                          if (value! <= currentValueRight) {
-                            _controllerRight.jumpToPage(currentIndexRight);
-                            currentValueRight = value.floorToDouble();
-                          } else {
-                            currentValueRight = value;
-                          }
-                        },
-                      ),
-                      items: listOfIcebear.map((url) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ImageGalleryWidget(
-                              url: url,
-                            );
+                            setState(() {});
                           },
-                        );
-                      }).toList(),
+                          onScrolled: (value) {
+                            if (value! <= currentValueRight) {
+                              _controllerRight.jumpToPage(currentIndexRight);
+                              currentValueRight = value.floorToDouble();
+                            } else {
+                              currentValueRight = value;
+                            }
+                          },
+                        ),
+                        items: listOfIcebear.map((url) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return ImageGalleryWidget(
+                                url: url,
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
                     ),
-                  ),
-                  Center(child: Text("<< swipe to left")),
-                ],
+                    Center(child: Text("<< swipe to left")),
+                  ],
+                ),
               ),
             ),
 
             // both side
+
             Container(
               height: heightSection,
               padding: EdgeInsets.only(top: 8),
@@ -194,40 +202,40 @@ class _GalleryPageState extends State<GalleryPage> {
                     child: ProfileGalleryWidget(
                       name: "Panda",
                     ),
-                  ),
-                  // Row(
-                  //   children: [
-                  //     CircleAvatar(
-                  //       radius: MediaQuery.of(context).size.width / 15,
-                  //       backgroundImage:
-                  //           AssetImage('assets/images/grizz_profile.jpg'),
-                  //     ),
-                  //     SizedBox(
-                  //       width: 10,
-                  //     ),
-                  //     Text("Panda"),
-                  //   ],
-                  // ),
-                  Expanded(
-                    child: CarouselSlider(
-                      options: CarouselOptions(
-                        aspectRatio: aspectRatio,
-                        viewportFraction: viewFraction,
-                        enlargeCenterPage: true,
+                    // Row(
+                    //   children: [
+                    //     CircleAvatar(
+                    //       radius: MediaQuery.of(context).size.width / 15,
+                    //       backgroundImage:
+                    //           AssetImage('assets/images/grizz_profile.jpg'),
+                    //     ),
+                    //     SizedBox(
+                    //       width: 10,
+                    //     ),
+                    //     Text("Panda"),
+                    //   ],
+                    // ),
+                    Expanded(
+                      child: CarouselSlider(
+                        options: CarouselOptions(
+                          aspectRatio: aspectRatio,
+                          viewportFraction: viewFraction,
+                          enlargeCenterPage: true,
+                        ),
+                        items: listOfPanda.map((url) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return ImageGalleryWidget(
+                                url: url,
+                              );
+                            },
+                          );
+                        }).toList(),
                       ),
-                      items: listOfPanda.map((url) {
-                        return Builder(
-                          builder: (BuildContext context) {
-                            return ImageGalleryWidget(
-                              url: url,
-                            );
-                          },
-                        );
-                      }).toList(),
                     ),
-                  ),
-                  Center(child: Text("<< swipe left or right >>"))
-                ],
+                    Center(child: Text("<< swipe left or right >>"))
+                  ],
+                ),
               ),
             ),
           ],
