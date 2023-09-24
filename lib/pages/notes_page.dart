@@ -152,6 +152,7 @@ class _NotesPageState extends State<NotesPage> {
         );
       },
     );
+
   }
 
   @override

@@ -32,7 +32,6 @@ class SQLHelper {
     final List<Map<String, dynamic>> data =
         await db.query('notes', orderBy: 'id DESC');
     return List.generate(data.length, (index) {
-      print("DATA : $data");
       return NotesModel(
         id: data[index]['id'],
         nilai: data[index]['nilai'],
