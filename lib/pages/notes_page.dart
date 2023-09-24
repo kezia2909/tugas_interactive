@@ -287,13 +287,17 @@ class _NotesPageState extends State<NotesPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            "Nilai : ${listOfNotes[index].nilai}",
-                            style: TextStyle(fontSize: 20),
+                          Expanded(
+                            child: Text(
+                              "Nilai : ${listOfNotes[index].nilai}",
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
-                          Text(
-                            "Grade : ${listOfNotes[index].grade}",
-                            style: TextStyle(fontSize: 20),
+                          Expanded(
+                            child: Text(
+                              "Grade : ${listOfNotes[index].grade}",
+                              style: TextStyle(fontSize: 20),
+                            ),
                           ),
                         ],
                       ),
