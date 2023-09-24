@@ -70,7 +70,7 @@ class _GalleryPageState extends State<GalleryPage> {
     if (deviceHeight > deviceWidth) {
       heightSection = 200;
     }
-    
+
     return Scaffold(
       appBar: AppBar(
         title: Text("My Gallery"),
@@ -78,24 +78,25 @@ class _GalleryPageState extends State<GalleryPage> {
         backgroundColor: colorTheme(colorBlack),
       ),
       body: SingleChildScrollView(
-      child: Container(
-        color: colorTheme(colorAccent),
-        width: double.infinity,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            // left only
-            Container(
-              height: heightSection,
-              padding: EdgeInsets.only(top: 8),
-              color: colorTheme(colorGrizzly),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: ProfileGalleryWidget(
-                      name: "Grizz",
+        child: Container(
+          color: colorTheme(colorAccent),
+          width: double.infinity,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // left only
+              Container(
+                height: heightSection,
+                padding: EdgeInsets.only(top: 8),
+                color: colorTheme(colorGrizzly),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: ProfileGalleryWidget(
+                        name: "Grizz",
+                      ),
                     ),
                     Expanded(
                       child: CarouselSlider(
@@ -134,21 +135,19 @@ class _GalleryPageState extends State<GalleryPage> {
                   ],
                 ),
               ),
-            ),
-            // right only
-
-
-            Container(
-              height: heightSection,
-              padding: EdgeInsets.only(top: 8),
-              color: colorTheme(colorIcebear),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: ProfileGalleryWidget(
-                      name: "Ice Bear",
+              // right only
+              Container(
+                height: heightSection,
+                padding: EdgeInsets.only(top: 8),
+                color: colorTheme(colorIcebear),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: ProfileGalleryWidget(
+                        name: "Ice Bear",
+                      ),
                     ),
                     Expanded(
                       child: CarouselSlider(
@@ -186,35 +185,20 @@ class _GalleryPageState extends State<GalleryPage> {
                   ],
                 ),
               ),
-            ),
-
-            // both side
-
-            Container(
-              height: heightSection,
-              padding: EdgeInsets.only(top: 8),
-              color: colorTheme(colorPanda),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: ProfileGalleryWidget(
-                      name: "Panda",
+              // both side
+              Container(
+                height: heightSection,
+                padding: EdgeInsets.only(top: 8),
+                color: colorTheme(colorPanda),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: ProfileGalleryWidget(
+                        name: "Panda",
+                      ),
                     ),
-                    // Row(
-                    //   children: [
-                    //     CircleAvatar(
-                    //       radius: MediaQuery.of(context).size.width / 15,
-                    //       backgroundImage:
-                    //           AssetImage('assets/images/grizz_profile.jpg'),
-                    //     ),
-                    //     SizedBox(
-                    //       width: 10,
-                    //     ),
-                    //     Text("Panda"),
-                    //   ],
-                    // ),
                     Expanded(
                       child: CarouselSlider(
                         options: CarouselOptions(
@@ -237,8 +221,8 @@ class _GalleryPageState extends State<GalleryPage> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
